@@ -1,8 +1,8 @@
 package router
 
 import (
+	"github.com/Suraj-Encoding/api/controller"
 	"github.com/gorilla/mux"
-	"github.com/hiteshchoudhary/mongoapi/controller"
 )
 
 func Router() *mux.Router {

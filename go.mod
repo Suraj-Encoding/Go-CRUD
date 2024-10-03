@@ -1,4 +1,4 @@
-module github.com/hiteshchoudhary/mongoapi
+module github.com/Suraj-Encoding/api
 
 go 1.17
 

@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hiteshchoudhary/mongoapi/router"
+	"github.com/Suraj-Encoding/api/router"
 )
 
 func main() {

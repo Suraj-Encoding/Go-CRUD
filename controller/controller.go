@@ -7,28 +7,28 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/Suraj-Encoding/api/model"
 	"github.com/gorilla/mux"
-	"github.com/hiteshchoudhary/mongoapi/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const connectionString = "mongodb+srv://learncodeonline:hitesh@cluster0.humov.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-const dbName = "netflix"
-const colName = "watchlist"
+const connectionString = "mongodb+srv://Suraj116:Encoding@cluster-0.pekhurp.mongodb.net/Netflix"
+const dbName = "Netflix"
+const colName = "Watchlist"
 
-//MOST IMPORTANT
+// MOST IMPORTANT
 var collection *mongo.Collection
 
-// connect with monogoDB
+// connect with mongoDB
 
 func init() {
-	//client option
+	// client option
 	clientOption := options.Client().ApplyURI(connectionString)
 
-	//connect to mongodb
+	// connect to mongodb
 	client, err := mongo.Connect(context.TODO(), clientOption)
 
 	if err != nil {
@@ -38,11 +38,11 @@ func init() {
 
 	collection = client.Database(dbName).Collection(colName)
 
-	//collection instance
+	// collection instance
 	fmt.Println("Collection instance is ready")
 }
 
-// MONGODB helpers - file
+// MONGODB helpers functions
 
 // insert 1 record
 func insertOneMovie(movie model.Netflix) {
@@ -77,7 +77,7 @@ func deleteOneMovie(movieId string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("MOvie got delete with delete count: ", deleteCount)
+	fmt.Println("Movie got delete with delete count: ", deleteCount)
 }
 
 // delete all records from mongodb
@@ -89,7 +89,7 @@ func deleteAllMovie() int64 {
 		log.Fatal(err)
 	}
 
-	fmt.Println("NUmber of movies delete: ", deleteResult.DeletedCount)
+	fmt.Println("Number of movies delete: ", deleteResult.DeletedCount)
 	return deleteResult.DeletedCount
 }
 
@@ -116,16 +116,16 @@ func getAllMovies() []primitive.M {
 	return movies
 }
 
-// Actual controller - file
+// Actual controller functions
 
 func GetMyAllMovies(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Content-Type", "application/json")
 	allMovies := getAllMovies()
 	json.NewEncoder(w).Encode(allMovies)
 }
 
 func CreateMovie(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Allow-Control-Allow-Methods", "POST")
 
 	var movie model.Netflix
@@ -136,7 +136,7 @@ func CreateMovie(w http.ResponseWriter, r *http.Request) {
 }
 
 func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Allow-Control-Allow-Methods", "PUT")
 
 	params := mux.Vars(r)
@@ -145,7 +145,7 @@ func MarkAsWatched(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteAMovie(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
 	params := mux.Vars(r)
@@ -154,7 +154,7 @@ func DeleteAMovie(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteAllMovies(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
 	count := deleteAllMovie()
