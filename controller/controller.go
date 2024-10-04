@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/Suraj-Encoding/api/model"
 	"github.com/gorilla/mux"
@@ -15,9 +16,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const connectionString = "mongodb+srv://Suraj116:Encoding@cluster-0.pekhurp.mongodb.net/Netflix"
-const dbName = "Netflix"
-const colName = "Watchlist"
+var connectionString = os.Getenv("MONGO_URI")
+var dbName = os.Getenv("DB_NAME")
+var colName = os.Getenv("COL_NAME")
 
 // MOST IMPORTANT
 var collection *mongo.Collection

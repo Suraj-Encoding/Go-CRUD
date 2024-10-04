@@ -1,0 +1,8 @@
+# Git Ignore Files #
+
+# OS Waste
+*.DS_Store
+
+# Environment variables
+*.env
+
